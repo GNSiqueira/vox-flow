@@ -1,3 +1,5 @@
 VoxFlow-Backend/.venv
 Documents/Diagrama de Classe .asta.lock
 VoxFlow-Backend/.vscode/
+**/__pycache__/
+VoxFlow-Backend/database.db
