@@ -15,7 +15,7 @@ class Restarante(Base):
     cep = Column(String(8), nullable=False)
     email = Column (String(150), nullable=False)
     telefone = Column(String(11), nullable=False)
-    active = Column(Boolean, default=False, nullable=False)
+    active = Column(Boolean, default=True, nullable=False)
 
     # Relacionamento
     funcionarios = relationship('Funcionario', back_populates='restaurante')

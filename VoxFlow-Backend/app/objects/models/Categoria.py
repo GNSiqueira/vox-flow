@@ -8,6 +8,7 @@ class Categoria(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     nome = Column(String(150), nullable=False)
     descricao = Column(String(200), nullable=False)
+    active = Column(Boolean, default=True, nullable=False)
 
     # Relacionamento N:1
     restaurante_id = Column(Integer, ForeignKey('restaurante.id'), nullable=False)

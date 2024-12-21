@@ -13,7 +13,7 @@ class Funcionario(Base):
     funcao = Column(Integer, nullable=False)
     login = Column(String(50), nullable=False, unique=True)
     senha = Column(String(50), nullable=False)
-    active = Column(Boolean, default=False, nullable=False)
+    active = Column(Boolean, default=True, nullable=False)
 
     # Relacionamento N:1
     restaurante_id = Column(Integer, ForeignKey('restaurante.id'), nullable=False)
