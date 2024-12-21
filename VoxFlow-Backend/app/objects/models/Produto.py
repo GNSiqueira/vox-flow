@@ -21,6 +21,7 @@ class Produto(Base):
 
     # Relacionamento 1:N
     itens_combo = relationship('ItemCombo', back_populates='produto')
+    itens_combo_base = relationship('ItemCombo', back_populates='produto_base')
     itens_retirada = relationship('ItemRetirada', back_populates='produto')
     itens_delivery = relationship('ItemDelivery', back_populates='produto')
     itens_mesa = relationship('ItemMesa', back_populates='produto')
