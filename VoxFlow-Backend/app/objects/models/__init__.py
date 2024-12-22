@@ -9,3 +9,4 @@ from .Ocupamento import *
 from .Mesa import *
 from .OrdemPagamento import *
 from .Pagamento import *
+from .Recebimento import *

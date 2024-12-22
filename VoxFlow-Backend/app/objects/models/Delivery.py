@@ -13,7 +13,7 @@ class Delivery(Base):
     active = Column(Boolean, default=True, nullable=False)
 
     # Relacionamento Restaurante
-    restaurante_id = Column(Integer, ForeignKey('restaurate.id'), nullable=False)
+    restaurante_id = Column(Integer, ForeignKey('restaurante.id'), nullable=False)
     restaurante = relationship('Restaurante', back_populates='deliveries')
 
     # relacionamento Ordem de pagamento

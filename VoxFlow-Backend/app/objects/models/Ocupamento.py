@@ -16,4 +16,4 @@ class Ocupacao(Base):
 
     itens_mesa = relationship('ItemMesa', back_populates='ocupacao')
 
-    ordem_pagamento_id = Column(Integer, ForeignKey('ordem_pagameto.id'), nullable=False)
+    ordem_pagamento_id = Column(Integer, ForeignKey('ordem_pagamento.id'), nullable=False)
