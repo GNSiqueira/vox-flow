@@ -18,8 +18,7 @@ class Delivery(Base):
 
     # relacionamento Ordem de pagamento
     ordem_pagamento_id = Column(Integer, ForeignKey('ordem_pagamento.id'), nullable=False)
-    ordem_pagamento = relationship('OrdemPagamento', back_populates='delivery')
 
     # Relacionamento item delivery
     itens_delivery = relationship('ItemDelivery', back_populates='delivery')
-    
+

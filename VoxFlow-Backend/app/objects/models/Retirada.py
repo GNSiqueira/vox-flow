@@ -15,7 +15,6 @@ class Retirada(Base):
 
     # Relacionamento Ordem de Pagamento
     ordem_pagamento_id = Column(Integer, ForeignKey('ordem_pagamento.id'), nullable=False)
-    ordem_pagamento = relationship('OrdemPagamento', back_populates='retirada')
 
     # Relacionamento item retirada
     itens_retirada = relationship('ItemRetirada', back_populates='retirada')
