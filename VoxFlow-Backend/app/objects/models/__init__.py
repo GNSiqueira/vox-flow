@@ -6,3 +6,4 @@ from .Produto import *
 from .ItemCombo import *
 from .Delivery import *
 from .Ocupamento import *
+from .Mesa import *
