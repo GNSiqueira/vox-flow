@@ -25,4 +25,4 @@ class Produto(Base):
     itens_retirada = relationship('ItemRetirada', back_populates='produto')
     itens_delivery = relationship('ItemDelivery', back_populates='produto')
     itens_mesa = relationship('ItemMesa', back_populates='produto')
-    customizacoes = relationship('Customizacao', back_populates='produto')
+    itens_customizacao = relationship('ItemCustomizacao', secondary='item_customizacao')
