@@ -4,7 +4,7 @@ from .Funcionario import *
 from .Retirada import *
 from .Produto import *
 from .Delivery import *
-from .Ocupamento import *
+from .Ocupacao import *
 from .Mesa import *
 from .OrdemPagamento import *
 from .Pagamento import *
@@ -15,3 +15,4 @@ from .CustomizacaoPermitida import *
 from .ItemCustomizacaoPermitida import *
 from .Combo import *
 from .ItemCombo import *
+from .ItemMesa import *
