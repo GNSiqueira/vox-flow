@@ -28,3 +28,7 @@ class Produto(Base):
 
     # Relacionamento 1:1
     customizacao_permitida = relationship('CustomizacaoPermitida', back_populates='produto', uselist=False)
+
+    itens_combo = relationship('ItemCombo', back_populates='produto')
+
+    combo = relationship('Combo', back_populates='produto', uselist=False)

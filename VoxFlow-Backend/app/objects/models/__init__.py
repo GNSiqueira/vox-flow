@@ -13,3 +13,5 @@ from .Customizacao import *
 from .ItemCustomizacao import *
 from .CustomizacaoPermitida import * 
 from .ItemCustomizacaoPermitida import *
+from .Combo import *
+from .ItemCombo import *
