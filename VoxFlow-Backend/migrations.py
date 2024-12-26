@@ -1,8 +1,10 @@
 import os 
 from app.objects.models import *
 
-from sqlalchemy import create_engine
+from app.config.connection.connection_developer import Connection 
 
 os.system("rm -rf database.db")
-engine = create_engine('sqlite:///database.db')
-Base.metadata.create_all(engine)
+
+conexao = Connection().conectar()
+
+Base.metadata.create_all(conexao.engine)
