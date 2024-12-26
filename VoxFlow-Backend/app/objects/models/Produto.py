@@ -7,10 +7,10 @@ class Produto(Base):
     # Campos da tabela
     id = Column(Integer, primary_key=True, autoincrement=True)
     nome = Column(String(170), nullable=False)
-    descricao = Column(String(255), nullable=False)
+    descricao = Column(String(255))
     valor = Column(Numeric(10, 2), nullable=False)
-    sku = Column(String(8), nullable=False)
-    quantidade = Column(Integer)
+    sku = Column(String(8))
+    quantidade = Column(Integer, nullable=False)
     active = Column(Boolean, default=True, nullable=False)
 
     # Relacionamento N:1

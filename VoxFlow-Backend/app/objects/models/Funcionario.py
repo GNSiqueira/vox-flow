@@ -7,9 +7,9 @@ class Funcionario(Base):
     # Atributos
     id = Column(Integer, primary_key=True, autoincrement=True)
     nome = Column(String(150), nullable=False)
-    email = Column(String(150), nullable=False)
-    cpf = Column(String(11), nullable=False, unique=True)
-    telefone = Column(String(11), nullable=False)
+    email = Column(String(150))
+    cpf = Column(String(11), unique=True)
+    telefone = Column(String(11))
     funcao = Column(Integer, nullable=False)
     login = Column(String(50), nullable=False, unique=True)
     senha = Column(String(50), nullable=False)

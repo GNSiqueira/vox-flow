@@ -8,7 +8,7 @@ class ItemRetirada(Base):
     peso = Column(Numeric(10, 2))
     pago = Column(Boolean, default=False, nullable=False)
     
-    ocupacao_id = Column(Integer, ForeignKey('ocupacao.id'), primary_key=True, nullable=False)
+    retirada_id = Column(Integer, ForeignKey('retirada.id'), primary_key=True, nullable=False)
     customizacao_id = Column(Integer, ForeignKey('customizacao.id'), primary_key=True)
     funcionario_id = Column(Integer, ForeignKey('funcionario.id'), primary_key=True, nullable=False)
     produto_id = Column(Integer, ForeignKey('produto.id'), primary_key=True, nullable=False)

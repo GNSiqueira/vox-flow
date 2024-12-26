@@ -5,3 +5,4 @@ class ItemCustomizacao(Base):
 
     customizacao_id = Column(Integer, ForeignKey('customizacao.id'), primary_key=True, nullable=False)
     produto_id = Column(Integer, ForeignKey('produto.id'), primary_key=True, nullable=False)
+    valor = Column(Integer)
