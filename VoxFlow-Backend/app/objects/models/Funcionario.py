@@ -20,6 +20,6 @@ class Funcionario(Base):
     restaurante = relationship('Restaurante', back_populates='funcionarios')
 
     # Relacionamento 1:N
-    itens_mesa = relationship('ItemMesa', back_populates='funcionario')
-    itens_delivery = relationship('ItemDelivery', back_populates='funcionario')
-    itens_retirada = relationship('ItemRetirada', back_populates='funcionario')
+    itens_mesa = relationship('ItemMesa')
+    itens_delivery = relationship('ItemDelivery')
+    itens_retirada = relationship('ItemRetirada')

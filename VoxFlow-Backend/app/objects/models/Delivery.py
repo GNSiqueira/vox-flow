@@ -21,5 +21,5 @@ class Delivery(Base):
     ordem_pagamento = relationship('OrdemPagamento', back_populates='delivery')
 
     # Relacionamento item delivery
-    itens_delivery = relationship('ItemDelivery', back_populates='delivery')
+    itens_delivery = relationship('ItemDelivery')
 

@@ -12,8 +12,3 @@ class ItemDelivery(Base):
     customizacao_id = Column(Integer, ForeignKey('customizacao.id'), primary_key=True)
     funcionario_id = Column(Integer, ForeignKey('funcionario.id'), primary_key=True, nullable=False)
     produto_id = Column(Integer, ForeignKey('produto.id'), primary_key=True, nullable=False)
-    
-    delivery = relationship('Delivery', back_populates='itens_delivery')
-    customizacao = relationship('Customizacao', back_populates='itens_delivery')
-    funcionario = relationship('Funcionario', back_populates='itens_delivery')
-    produto = relationship('Produto', back_populates='itens_delivery')

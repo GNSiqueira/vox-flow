@@ -7,3 +7,6 @@ class Connection:
         self.Session = sessionmaker(bind=self.engine)
         self.session = self.Session()
         return self
+    
+    def desconectar(self) -> None:
+        self.session.close()

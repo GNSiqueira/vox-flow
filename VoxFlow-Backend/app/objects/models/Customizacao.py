@@ -7,7 +7,7 @@ class Customizacao(Base):
     valor = Column(Numeric(10, 2), nullable=False)
     
     # Relacionamento Itens Customizacao
-    itens_customizacao = relationship('ItemCustomizacao', secondary='item_customizacao')
+    itens_customizacao = relationship('Produto', secondary='item_customizacao')
 
     item_mesa = relationship('ItemMesa', uselist=False)
 

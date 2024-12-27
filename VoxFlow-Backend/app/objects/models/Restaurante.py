@@ -1,6 +1,6 @@
 from app.config.imports.create_table import *
 
-class Restarante(Base):
+class Restaurante(Base):
     # Nome da tabela
     __tablename__ = 'restaurante'
 
@@ -24,3 +24,18 @@ class Restarante(Base):
     categorias = relationship('Categoria', back_populates='restaurante')
     retiradas = relationship('Retirada', back_populates='restaurante')
     deliveries = relationship('Delivery', back_populates='restaurante')
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "nome": self.nome,
+            "cnpj": self.cnpj,
+            "logradouro": self.logradouro,
+            "bairro": self.bairro,
+            "cidade": self.cidade,
+            "estado": self.estado,
+            "cep": self.cep,
+            "email": self.email,
+            "telefone": self.telefone,
+            "active": self.active
+        }

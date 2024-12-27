@@ -12,8 +12,3 @@ class ItemRetirada(Base):
     customizacao_id = Column(Integer, ForeignKey('customizacao.id'), primary_key=True)
     funcionario_id = Column(Integer, ForeignKey('funcionario.id'), primary_key=True, nullable=False)
     produto_id = Column(Integer, ForeignKey('produto.id'), primary_key=True, nullable=False)
-    
-    retirada = relationship('Retirada', back_populates='itens_retirada')
-    customizacao = relationship('Customizacao', back_populates='itens_retirada')
-    funcionario = relationship('Funcionario', back_populates='itens_retirada')
-    produto = relationship('Produto', back_populates='itens_retirada')

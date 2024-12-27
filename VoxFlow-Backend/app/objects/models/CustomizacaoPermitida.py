@@ -7,4 +7,4 @@ class CustomizacaoPermitida(Base):
     produto_id = Column(Integer, ForeignKey('produto.id'), nullable=False)
     produto = relationship('Produto', back_populates='customizacao_permitida')
 
-    itens_customizacao_permitida = relationship('ItemCustomizacaoPermitida', secondary='item_customizacao_permitida')
+    itens_customizacao_permitida = relationship('Produto', secondary='item_customizacao_permitida')
