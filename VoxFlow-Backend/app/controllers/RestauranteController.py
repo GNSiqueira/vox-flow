@@ -1,11 +1,22 @@
 from app.objects.models.Restaurante import Restaurante
-from app.config.imports.flask import *
+from app.controllers.Generic.GenericController import *
 
-@app.route('/restaurante', methods=['GET'])
+@app.route("/restaurante", methods=["GET"])
 def get_restaurante():
-    conexao = Connection().conectar()
-    session = conexao.session
-    restaurantes = session.query(Restaurante).all()
-    restaurante_json = [restaurante.to_json() for restaurante in restaurantes]
+    return GenericController(Restaurante).get()
 
-    return ok("restaurantes", restaurante_json, "Lista de restaurantes")
+@app.route("/restaurante/<int:id>", methods=["GET"])
+def get_restaurante_id(id):
+    return GenericController(Restaurante).get_by_id(id)
+
+@app.route("/restaurante", methods=["POST"])
+def create_restaurante():
+    return GenericController(Restaurante).post()
+
+@app.route("/restaurante/<int:id>", methods=["PUT"])
+def update_restaurante(id):
+    return GenericController(Restaurante).put(request, id)
+
+@app.route("/restaurante/<int:id>", methods=["DELETE"])
+def delete_restaurante(id):
+    return GenericController(Restaurante).delete(id)
