@@ -16,3 +16,12 @@ class Categoria(Base):
 
     # Relacionamento 1:N
     produtos = relationship('Produto', back_populates='categoria')
+
+    def to_json(self): 
+        return {
+            'id': self.id,
+            'nome': self.nome,
+            'descricao': self.descricao,
+            'active': self.active,
+            'restaurante_id': self.restaurante_id
+        }

@@ -9,3 +9,10 @@ class ItemCombo(Base):
     combo_id = Column(Integer, ForeignKey('combo.id'), primary_key=True, nullable=False)
     produto = relationship('Produto', back_populates='itens_combo')
     combo = relationship('Combo', back_populates='itens_combo')
+    
+    def to_json(self):
+        return {
+            'quantidade': self.quantidade,
+            'produto_id': self.produto_id,
+            'combo_id': self.combo_id
+            }

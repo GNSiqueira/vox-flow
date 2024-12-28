@@ -15,3 +15,13 @@ class Pagamento(Base):
 
     # Relacionamento Recebimento
     recebimentos = relationship('Recebimento', back_populates='pagamento')
+
+    def to_json(self):
+        return {
+            'id': self.id,
+            'valor': self.valor,
+            'tipo_pagamento': self.tipo_pagamento,
+            'status': self.status,
+            'active': self.active,
+            'ordem_pagamento_id': self.ordem_pagamento_id
+            }

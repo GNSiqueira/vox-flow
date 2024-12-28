@@ -14,3 +14,9 @@ class Customizacao(Base):
     item_delivery = relationship('ItemDelivery', uselist=False)
 
     item_retirada = relationship('ItemRetirada', uselist=False)
+
+    def to_json(self):
+        return {
+            'id': self.id,
+            'valor': self.valor
+            }

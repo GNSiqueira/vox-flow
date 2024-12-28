@@ -23,3 +23,17 @@ class Delivery(Base):
     # Relacionamento item delivery
     itens_delivery = relationship('ItemDelivery')
 
+    def to_json(self):
+        return {
+            'id': self.id,
+            'data': self.data,
+            'hora': self.hora,
+            'nome_cliente': self.nome_cliente,
+            'logradouro': self.logradouro,
+            'bairro': self.bairro,
+            'cidade_estado': self.cidade_estado,
+            'status': self.status,
+            'active': self.active,
+            'restaurante_id': self.restaurante_id,
+            'ordem_pagamento_id': self.ordem_pagamento_id
+            }

@@ -12,3 +12,15 @@ class ItemMesa(Base):
     customizacao_id = Column(Integer, ForeignKey('customizacao.id'), primary_key=True)
     funcionario_id = Column(Integer, ForeignKey('funcionario.id'), primary_key=True, nullable=False)
     produto_id = Column(Integer, ForeignKey('produto.id'), primary_key=True, nullable=False)
+
+    def to_json(self):
+        return {
+            'valor': self.valor,
+            'observacao': self.observacao,
+            'peso': self.peso,
+            'pago': self.pago,
+            'ocupacao_id': self.ocupacao_id,
+            'customizacao_id': self.customizacao_id,
+            'funcionario_id': self.funcionario_id,
+            'produto_id': self.produto_id
+            }

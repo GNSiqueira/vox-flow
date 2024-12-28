@@ -17,3 +17,15 @@ class Ocupacao(Base):
     itens_mesa = relationship('ItemMesa')
 
     ordem_pagamento_id = Column(Integer, ForeignKey('ordem_pagamento.id'), nullable=False)
+
+    def to_json(self):
+        return {
+            'id': self.id,
+            'valor_total': self.valor_total,
+            'data': self.data,
+            'hora': self.hora,
+            'status': self.status,
+            'active': self.active,
+            'mesa_id': self.mesa_id,
+            'ordem_pagamento_id': self.ordem_pagamento_id
+            }

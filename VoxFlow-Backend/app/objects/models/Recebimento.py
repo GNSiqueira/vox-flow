@@ -13,3 +13,12 @@ class Recebimento(Base):
     pagamento_id = Column(Integer, ForeignKey('pagamento.id'), nullable=False)
     pagamento = relationship('Pagamento', back_populates='recebimentos')
     
+    def to_json(self):
+        return {
+            'id': self.id,
+            'valor': self.valor,
+            'tipo_pagamento': self.tipo_pagamento,
+            'status': self.status,
+            'active': self.active,
+            'pagamento_id': self.pagamento_id
+            }

@@ -32,3 +32,16 @@ class Produto(Base):
     itens_combo = relationship('ItemCombo', back_populates='produto')
 
     combo = relationship('Combo', back_populates='produto', uselist=False)
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "nome": self.nome,
+            "descricao": self.descricao,
+            "valor": self.valor,
+            "sku": self.sku,
+            "quantidade": self.quantidade,
+            "active": self.active,
+            "restaurante_id": self.restaurante_id,
+            "categoria_id": self.categoria_id
+        }

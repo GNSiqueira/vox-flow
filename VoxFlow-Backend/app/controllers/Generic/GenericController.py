@@ -36,7 +36,6 @@ class GenericController():
         conexao = Connection().conectar()
         session = conexao.session
         try:
-            # Checando tipo de conteúdo
             if request.is_json:
                 form = request.get_json()
             else:
@@ -61,14 +60,14 @@ class GenericController():
             session.close()
             conexao.desconectar()
 
-    def put(self, request, id):
+    def put(self, id):
         conexao = Connection().conectar()
         try:
             session = conexao.session
             item = session.get(self.model, id)
             if not item:
                 return not_found(f"{self.name_table}", [], f"{self.name_table} com ID {id} não encontrado")
-            item.from_json(request.json)  # Assumindo que o método from_json existe
+            item.from_json(request.json)
             session.commit()
             return ok(f"{self.name_table}", item.to_json(), f"{self.name_table} atualizado")
         except Exception as e:

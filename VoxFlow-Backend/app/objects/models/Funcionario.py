@@ -23,3 +23,18 @@ class Funcionario(Base):
     itens_mesa = relationship('ItemMesa')
     itens_delivery = relationship('ItemDelivery')
     itens_retirada = relationship('ItemRetirada')
+
+    def to_json(self):
+        return {
+            'id': self.id,
+            'nome': self.nome,
+            'email': self.email,
+            'cpf': self.cpf,
+            'telefone': self.telefone,
+            'funcao': self.funcao,
+            'login': self.login,
+            'senha': self.senha,
+            'active': self.active,
+            'restaurante_id': self.restaurante_id
+        }
+    

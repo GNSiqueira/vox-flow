@@ -20,3 +20,12 @@ class OrdemPagamento(Base):
 
     # Relacionamento Pagamento
     pagamentos = relationship('Pagamento', back_populates='ordem_pagamento')
+
+    def to_json(self):
+        return {
+            'id': self.id,
+            'status': self.status,
+            'valor_total': self.valor_total,
+            'valor_a_pagar': self.valor_a_pagar,
+            'active': self.active
+            }

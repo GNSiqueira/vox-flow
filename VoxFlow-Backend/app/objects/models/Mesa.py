@@ -13,3 +13,12 @@ class Mesa(Base):
     restaurante = relationship('Restaurante', back_populates='mesas')
 
     ocupacoes = relationship('Ocupacao', back_populates='mesa')
+
+    def to_json(self):
+        return {
+            'id': self.id,
+            'nome': self.nome,
+            'status': self.status,
+            'active': self.active,
+            'restaurante_id': self.restaurante_id
+            }

@@ -18,3 +18,14 @@ class Retirada(Base):
 
     # Relacionamento item retirada
     itens_retirada = relationship('ItemRetirada')
+
+    def to_json(self):
+        return {
+            "id": self.id,
+            "data": self.data,
+            "hora": self.hora,
+            "nome_cliente": self.nome_cliente,
+            "active": self.active,
+            "restaurante_id": self.restaurante_id,
+            "ordem_pagamento_id": self.ordem_pagamento_id
+        }

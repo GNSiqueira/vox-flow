@@ -8,3 +8,9 @@ class CustomizacaoPermitida(Base):
     produto = relationship('Produto', back_populates='customizacao_permitida')
 
     itens_customizacao_permitida = relationship('Produto', secondary='item_customizacao_permitida')
+
+    def to_json(self):
+        return {
+            'id': self.id,
+            'produto_id': self.produto_id
+            }
