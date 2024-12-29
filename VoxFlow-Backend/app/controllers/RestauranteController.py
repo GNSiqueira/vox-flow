@@ -15,7 +15,7 @@ def create_restaurante():
 
 @app.route("/restaurante/<int:id>", methods=["PUT"])
 def update_restaurante(id):
-    return GenericController(Restaurante).put(request, id)
+    return GenericController(Restaurante).put(id)
 
 @app.route("/restaurante/<int:id>", methods=["DELETE"])
 def delete_restaurante(id):

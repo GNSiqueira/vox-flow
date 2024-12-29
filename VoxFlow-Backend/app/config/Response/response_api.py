@@ -28,3 +28,6 @@ def not_found(namedata = "", data = [], message=False):
 
 def internal_server_error(namedata = "", data = [], message=False):
     return Response(500, namedata, data, message)
+
+def conflict(namedata = "", data = [], message=False):
+    return Response(409, namedata, data, message)
