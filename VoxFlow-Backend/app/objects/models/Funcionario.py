@@ -1,4 +1,5 @@
 from app.config.imports.create_table import *
+from app.objects.enums.TipoFuncao import TipoFuncao
 
 class Funcionario(Base):
     # Nome da tabela
@@ -23,6 +24,10 @@ class Funcionario(Base):
     itens_mesa = relationship('ItemMesa')
     itens_delivery = relationship('ItemDelivery')
     itens_retirada = relationship('ItemRetirada')
+
+    enums = {
+        'funcao': TipoFuncao
+    }
 
     def to_json(self):
         return {
