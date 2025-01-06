@@ -1,3 +1,4 @@
+from app import app
 from app.objects.models.Restaurante import Restaurante
 from app.controllers.Generic.GenericController import *
 
