@@ -1,7 +1,12 @@
 from app.config.imports.create_table import *
+from app.objects.enums.StatusMesa import StatusMesa
 
 class Mesa(Base): 
     __tablename__ = 'mesa'
+
+    enums = {
+        'status': StatusMesa
+    }
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     nome = Column(String(50), nullable=False)

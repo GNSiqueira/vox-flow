@@ -1,8 +1,13 @@
 from app.config.imports.create_table import *
+from app.objects.enums.TipoProduto import TipoProduto
 
 class Produto(Base):
     # Nome da tabela
     __tablename__ = 'produto'
+
+    enums = {
+        'tipo_produto': TipoProduto
+    }
 
     # Campos da tabela
     id = Column(Integer, primary_key=True, autoincrement=True)
@@ -11,6 +16,7 @@ class Produto(Base):
     valor = Column(Numeric(10, 2), nullable=False)
     sku = Column(String(8))
     quantidade = Column(Integer, nullable=False)
+    tipo_produto = Column(Integer, nullable=False)
     active = Column(Boolean, default=True, nullable=False)
 
     # Relacionamento N:1

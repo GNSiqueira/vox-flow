@@ -1,7 +1,12 @@
 from app.config.imports.create_table import *
+from app.objects.enums.TipoPagamento import TipoPagamento
 
 class Pagamento(Base): 
     __tablename__ = 'pagamento'
+
+    enums = {
+        'tipo_pagamento' : TipoPagamento
+    }
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     valor = Column(Numeric(10, 2), nullable=False)

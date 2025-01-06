@@ -1,7 +1,13 @@
 from app.config.imports.create_table import *
+from app.objects.enums.StatusDelivery import StatusDelivery
 
 class Delivery(Base):
     __tablename__ = 'delivery'
+
+    enums = {
+        'status' : StatusDelivery
+    }
+
     id = Column(Integer, primary_key=True, autoincrement=True)
     data = Column(Date, nullable=False)
     hora = Column(Time, nullable=False)
