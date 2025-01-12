@@ -1,3 +1,4 @@
+from decimal import Decimal
 from app.config.imports.create_table import *
 from app.objects.enums.TipoProduto import TipoProduto
 
@@ -41,13 +42,14 @@ class Produto(Base):
 
     def to_json(self):
         return {
-            "id": self.id,
-            "nome": self.nome,
-            "descricao": self.descricao,
-            "valor": self.valor,
-            "sku": self.sku,
-            "quantidade": self.quantidade,
-            "active": self.active,
-            "restaurante_id": self.restaurante_id,
-            "categoria_id": self.categoria_id
-        }
+        "id": self.id,
+        "nome": self.nome,
+        "descricao": self.descricao,
+        "valor": float(self.valor) if isinstance(self.valor, Decimal) else self.valor,
+        "sku": self.sku,
+        "quantidade": self.quantidade,
+        "tipo_produto": self.tipo_produto,
+        "active": self.active,
+        "restaurante_id": self.restaurante_id,
+        "categoria_id": self.categoria_id
+    }
