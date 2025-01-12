@@ -13,6 +13,6 @@ class Combo(Base):
 
     def to_json(self):
         return {"id": self.id,
-                "ativo": self.active, 
+                "active": self.active, 
                 "produto_id": self.produto_id
                 }
