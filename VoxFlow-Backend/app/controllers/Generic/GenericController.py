@@ -36,7 +36,40 @@ class GenericController():
         conexao = Connection().conectar()
         try:
             session = conexao.session
-            itens = session.query(self.model).all()
+            primary_key = []
+            for key in self.model.__dict__:
+                if str(key)[-3:] == '_id':
+                    primary_key.append(str(key))
+
+            value_get = {}
+
+            for key, value in request.args.to_dict().items():
+                count = len(primary_key)
+                for key2 in primary_key:
+                    if key == key2:
+                        value_get[key] = value
+                        break
+                    count -= 1
+                    if count == 0:
+                        raise ValueError("Erro ao buscar registro - verificar se todos os IDs estão corretos")
+            
+            if len(primary_key) < len(value_get): 
+                raise ValueError("Erro ao buscar registro - verificar se todos os IDs estão corretos")
+            elif len(primary_key) > 1 and len(value_get) > 1 or len(primary_key) > len(value_get):
+                filters = []
+                for key, value in value_get.items():
+                    if value is not None:
+                        filters.append(getattr(self.model, key) == value) 
+                itens = session.query(self.model).filter(*filters).all()
+            elif len(primary_key) == len(value_get):
+                filters = []
+                for key, value in value_get.items():
+                    if value is not None:
+                        filters.append(getattr(self.model, key) == value) 
+                itens = session.query(self.model).filter(*filters).all()
+            else: 
+                itens = session.query(self.model).all()
+
             itens_json = []
             for item in itens:
                 self.validate_enums('str', item)
