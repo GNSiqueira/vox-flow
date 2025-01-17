@@ -1,3 +1,4 @@
+from decimal import Decimal
 from app.config.imports.create_table import *
 from app.objects.enums.TipoPagamento import TipoPagamento
 
@@ -24,7 +25,7 @@ class Pagamento(Base):
     def to_json(self):
         return {
             'id': self.id,
-            'valor': self.valor,
+            'valor': float(self.valor) if isinstance(self.valor, Decimal) else self.valor,
             'tipo_pagamento': self.tipo_pagamento,
             'status': self.status,
             'active': self.active,

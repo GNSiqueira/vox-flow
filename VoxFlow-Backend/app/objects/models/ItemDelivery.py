@@ -1,3 +1,4 @@
+from decimal import Decimal
 from app.config.imports.create_table import *
 
 class ItemDelivery(Base):
@@ -10,15 +11,15 @@ class ItemDelivery(Base):
     
     valor = Column(Numeric(10, 2), nullable=False)
     observacao = Column(Text)
-    peso = Column(Numeric(10, 2))
+    peso = Column(Numeric(10, 3))
     pago = Column(Boolean, default=False, nullable=False)
     
 
     def to_json(self):
         return {
-            'valor': self.valor,
+            'valor': float(self.valor) if isinstance(self.valor, Decimal) else self.valor,
             'observacao': self.observacao,
-            'peso': self.peso,
+            'peso': float(self.peso) if isinstance(self.peso, Decimal) else self.peso,
             'pago': self.pago,
             'delivery_id': self.delivery_id,
             'customizacao_id': self.customizacao_id,

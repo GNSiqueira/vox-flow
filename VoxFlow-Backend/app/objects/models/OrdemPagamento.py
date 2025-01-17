@@ -1,3 +1,4 @@
+from decimal import Decimal
 from app.config.imports.create_table import * 
 
 class OrdemPagamento(Base):
@@ -25,7 +26,7 @@ class OrdemPagamento(Base):
         return {
             'id': self.id,
             'status': self.status,
-            'valor_total': self.valor_total,
-            'valor_a_pagar': self.valor_a_pagar,
+            'valor_total': float(self.valor_total) if isinstance(self.valor_total, Decimal) else self.valor_total,
+            'valor_a_pagar': float(self.valor_a_pagar) if isinstance(self.valor_a_pagar, Decimal) else self.valor_a_pagar,
             'active': self.active
             }

@@ -1,3 +1,4 @@
+from decimal import Decimal
 from app.config.imports.create_table import *
 
 class Customizacao(Base):
@@ -18,5 +19,5 @@ class Customizacao(Base):
     def to_json(self):
         return {
             'id': self.id,
-            'valor': self.valor
+            'valor': float(self.valor) if isinstance(self.valor, Decimal) else self.valor
             }

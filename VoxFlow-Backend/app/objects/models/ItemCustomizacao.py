@@ -5,7 +5,7 @@ class ItemCustomizacao(Base):
 
     customizacao_id = Column(Integer, ForeignKey('customizacao.id'), primary_key=True, nullable=False)
     produto_id = Column(Integer, ForeignKey('produto.id'), primary_key=True, nullable=False)
-    valor = Column(Integer)
+    valor = Column(Numeric(10, 2), nullable=False)
 
     def to_json(self):
         return {
