@@ -1,3 +1,4 @@
+from sqlalchemy import Column
 from app.config.imports.flask import *
 
 class GenericController(): 
@@ -9,6 +10,45 @@ class GenericController():
         else:
             self.enums = None
 
+    #region Métodos internos
+    def __values_get(self):
+        primary_key = []
+                
+        values_return = {}
+        
+        for key in self.model.__dict__:
+            if str(key)[-3:] == '_id':
+                primary_key.append(str(key))
+        
+        for key, value in request.args.to_dict().items():
+            count = len(primary_key)
+            for primary in primary_key: 
+                if primary == key: 
+                    values_return[key] = value 
+                    break                 
+                count -= 1
+                if count == 0: 
+                    raise ValueError("Erro ao buscar registro - verificar se todos os IDs estão corretos")
+        return values_return, primary_key
+    
+    def __filters(self, value_get):
+        filters = []
+        for key, value in value_get.items():
+            if value is not None:
+                filters.append(getattr(self.model, key) == value) 
+        return filters
+
+    def __validate_atributes(self, input = None):
+        for key, value in input.items():
+            count = len(self.model.__dict__)
+            for key2 in self.model.__dict__: 
+                if key == key2:
+                    break
+                count -= 1
+                if count == 0:
+                    raise ValueError(f"Erro ao buscar registro - atributo {key} não encontrado na tabela")
+        return True
+    
     def validate_enums(self, retorno, model = None):
         if not model:
             model = self.model 
@@ -30,42 +70,23 @@ class GenericController():
                     raise ValueError("Enum inválido - verificar valor de: " + key)
             return True
         return True
-        
+    
+    #endregion    
 
     def get(self):
         conexao = Connection().conectar()
         try:
             session = conexao.session
-            primary_key = []
-            for key in self.model.__dict__:
-                if str(key)[-3:] == '_id':
-                    primary_key.append(str(key))
-
-            value_get = {}
-
-            for key, value in request.args.to_dict().items():
-                count = len(primary_key)
-                for key2 in primary_key:
-                    if key == key2:
-                        value_get[key] = value
-                        break
-                    count -= 1
-                    if count == 0:
-                        raise ValueError("Erro ao buscar registro - verificar se todos os IDs estão corretos")
+            
+            value_get, primary_key = self.__values_get()
             
             if len(primary_key) < len(value_get): 
                 raise ValueError("Erro ao buscar registro - verificar se todos os IDs estão corretos")
             elif len(primary_key) > 1 and len(value_get) > 1 or len(primary_key) > len(value_get):
-                filters = []
-                for key, value in value_get.items():
-                    if value is not None:
-                        filters.append(getattr(self.model, key) == value) 
+                filters = self.__filters(value_get)
                 itens = session.query(self.model).filter(*filters).all()
             elif len(primary_key) == len(value_get):
-                filters = []
-                for key, value in value_get.items():
-                    if value is not None:
-                        filters.append(getattr(self.model, key) == value) 
+                filters = self.__filters(value_get)
                 itens = session.query(self.model).filter(*filters).all()
             else: 
                 itens = session.query(self.model).all()
@@ -136,51 +157,61 @@ class GenericController():
             session.close()
             conexao.desconectar()
 
-    def put(self, id):
+    def put(self, id = None):
         conexao = Connection().conectar()
+        
         try:
-            session = conexao.session
-            item = session.query(self.model).get(id)
+            session = conexao.session               
 
-            if not item:
-                return not_found(
-                    f"{self.name_table}", [], f"{self.name_table} com ID {id} não encontrado"
-                )
+            if id is None:
+                value_get, primary_key = self.__values_get()
+                if len(value_get) != len(primary_key):
+                    raise ValueError("Campos para a busca do objeto estão faltando, verifique todos os campos!")
+                filters = self.__filters(value_get)
+                item = session.query(self.model).filter(*filters).all()
+                if len(item) == 1: 
+                    item = item[0]
+                    if request.is_json:
+                        form = request.get_json()
+                    elif request.form.to_dict():
+                        form = request.form.to_dict()
+                    else: 
+                        raise ValueError("Formulario vazio")
+                    
+                    self.__validate_atributes(form)
 
-            # Lida com JSON ou form-data
-            if request.is_json:
-                form = request.get_json()
-            else:
-                form = request.form.to_dict()
+                    for key, value in form.items(): 
+                        if key == "id": 
+                            continue
+                        setattr(item, key, value)
 
-            print("Antes da atualização:", item.to_json())
+            elif id is not None:
+                item = session.query(self.model).get(id)
+                if request.is_json:
+                    form = request.get_json()
+                elif request.form.to_dict():
+                    form = request.form.to_dict()
+                else: 
+                    raise ValueError("Formulario vazio")
+                
+                self.__validate_atributes(form)
 
-            # Atualiza os atributos dinamicamente
-            for key, value in form.items():
-                if key == "id":
-                    continue  # Evita atualizar o ID
-                if hasattr(item, key):
+                for key, value in form.items(): 
+                    if key == "id": 
+                        continue
                     setattr(item, key, value)
-                else:
-                    print(f"Atributo '{key}' não existe em {self.name_table}, ignorado.")
 
-            print("Depois da atualização:", item.to_json())
-
-            # Adiciona e confirma no banco
             session.add(item)
             session.commit()
-            item = self.model(**item.to_json())
-            self.validate_enums('str', item)
+
             return ok(f"{self.name_table}", item.to_json(), f"{self.name_table} atualizado")
         except Exception as e:
-            # Log detalhado para debug
             print(f"Erro ao atualizar {self.name_table}: {e}")
             session.rollback()
             return internal_server_error(
                 f"{self.name_table}", [], f"Erro ao atualizar {self.name_table}: {str(e)}"
             )
         finally:
-            # Fecha a sessão e a conexão
             session.close()
             conexao.desconectar()
 
