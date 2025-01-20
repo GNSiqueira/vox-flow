@@ -4,3 +4,4 @@ from .ProdutoController import *
 from .CategoriaController import *
 from .ComboController import *
 from .ItemComboController import *
+from .CustomizacaoPermitidaController import *

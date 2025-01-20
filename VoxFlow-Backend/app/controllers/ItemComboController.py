@@ -14,9 +14,9 @@ def get_itemcombo_id(id):
 def create_itemcombo():
     return GenericController(ItemCombo).post()
 
-@app.route("/itemcombo/<int:id>", methods=["PUT"])
-def update_itemcombo(id):
-    return GenericController(ItemCombo).put(id)
+@app.route("/itemcombo", methods=["PUT"])
+def update_itemcombo():
+    return GenericController(ItemCombo).put()
 
 @app.route("/itemcombo/<int:id>", methods=["DELETE"])
 def delete_itemcombo(id):
